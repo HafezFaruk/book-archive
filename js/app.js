@@ -5,18 +5,19 @@ const searchBook = () => {
     const searchText = searchField.value;
     // clear data
     searchField.value = '';
+   
     if (searchText === '') {
         displayError()
-    } 
+    }
     else {
         // Display Spinner
         document.getElementById('spinner').style.display = 'block';
         // Hide error
         document.getElementById('error-message').style.display = 'none';
         // Clear Search Result
-        document.getElementById('search-result').textContent ='';
+        document.getElementById('search-result').textContent = '';
         // api url
-        const url = `http://openlibrary.org/search.json?q=${searchText}`;
+        const url = `https://openlibrary.org/search.json?q=${searchText}`;
         fetch(url)
             .then(res => res.json())
             .then(data => displaySearchBook(data))
@@ -25,18 +26,20 @@ const searchBook = () => {
 
 const displaySearchBook = book => {
     const searchResult = document.getElementById('search-result');
+    document.getElementById('book-numbers').textContent = '';
     searchResult.textContent = '';
     const bookList = book.docs;
-    if (bookList === '') {
+     
+    if (bookList === null || bookList.length <= 0) {
         displayError()
-    } 
+    }
     else {
         document.getElementById('spinner').style.display = 'none';
         document.getElementById('error-message').style.display = 'none';
         document.getElementById('book-numbers').innerText = `Book Found ${bookList.length}`;
+
         bookList.forEach(books => {
-            const url = `https://covers.openlibrary.org/b/id/${books.cover_i}-L.jpg`;
-            console.log(url);
+            const url = `https://covers.openlibrary.org/b/id/${books.cover_i}-M.jpg`;
             const div = document.createElement('div');
             div.classList.add('col');
             div.innerHTML = `
@@ -45,20 +48,17 @@ const displaySearchBook = book => {
                 <div class="card-body">
                     <h5 class="card-title">Books Name: ${books.title}</h5>
                     <p class="card-text">Author: ${books.author_name}</p>
-                    <p class="card-text">First Publisher: ${books.first_publish_year}</p>
+                    <p class="card-text">First Publish: ${books.first_publish_year ? books.first_publish_year : "No publish"}</p>
+                    <p class="card-text">Publisher: ${books.publisher ? books.publisher : 'No publisher'}</p>
                 </div>
             `;
             searchResult.appendChild(div);
         });
     }
-
-  
 }
 
 const displayError = () => {
     document.getElementById('error-message').style.display = 'block';
     document.getElementById('spinner').style.display = 'none';
     document.getElementById('book-numbers').textContent = '';
-    // document.getElementById('team-details').textContent = '';
-
 }
