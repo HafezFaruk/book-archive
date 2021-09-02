@@ -48,13 +48,15 @@ const displaySearchBook = book => {
         bookList.forEach(books => {
             // url cover image
             const url = `https://covers.openlibrary.org/b/id/${books.cover_i}-M.jpg`;
+            const default_img = `images/default_book_cover.jpg`;
+            const img_url = (books.cover_i !== undefined) ? url : default_img;
             const div = document.createElement('div');
             div.classList.add('col');
             div.innerHTML = `
             <div  class="card h-100 text-center">
-                <img src="${url}" class="w-50 h-50 mx-auto" alt="image">
+                <img src="${img_url}" class="w-50 h-50 mx-auto" alt="image">
                 <div class="card-body">
-                    <h5 class="card-title">Books Name: ${books.title}</h5>
+                    <h5 class="card-title">${books.title}</h5>
                     <p class="card-text">Author: ${books.author_name}</p>
                     <p class="card-text">First Publish: ${books.first_publish_year ? books.first_publish_year : "No publish"}</p>
                     <p class="card-text">Publisher: ${books.publisher ? books.publisher : 'No publisher'}</p>
