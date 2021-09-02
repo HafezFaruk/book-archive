@@ -10,6 +10,7 @@ const searchBook = () => {
    // error-message call
     if (searchText === '') {
         displayError()
+
     }
     else {
         // Display Spinner
@@ -68,4 +69,5 @@ const displayError = () => {
     document.getElementById('error-message').style.display = 'block';
     document.getElementById('spinner').style.display = 'none';
     document.getElementById('book-numbers').textContent = '';
+    document.getElementById('search-result').style.display = 'none';
 }
