@@ -19,7 +19,7 @@ const searchBook = () => {
         // Clear Search Result
         document.getElementById('search-result').textContent = '';
         // api url
-        const url = `http://openlibrary.org/search.json?q=${searchText}`;
+        const url = `https://openlibrary.org/search.json?q=${searchText}`;
         fetch(url)
             .then(res => res.json())
             .then(data => displaySearchBook(data))
