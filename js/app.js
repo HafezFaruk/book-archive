@@ -1,11 +1,13 @@
+// error-message
 document.getElementById('error-message').style.display = 'none';
+// Display Spinner
 document.getElementById('spinner').style.display = 'none';
 const searchBook = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     // clear data
     searchField.value = '';
-   
+   // error-message call
     if (searchText === '') {
         displayError()
     }
@@ -25,20 +27,25 @@ const searchBook = () => {
 }
 
 const displaySearchBook = book => {
+    //search-result input text
     const searchResult = document.getElementById('search-result');
     document.getElementById('book-numbers').textContent = '';
     searchResult.textContent = '';
     const bookList = book.docs;
-     
+     // error-message call
     if (bookList === null || bookList.length <= 0) {
         displayError()
     }
     else {
+        // Display Spinner
         document.getElementById('spinner').style.display = 'none';
+        // error-message
         document.getElementById('error-message').style.display = 'none';
+        //Book Found
         document.getElementById('book-numbers').innerText = `Book Found ${bookList.length}`;
-
+        // use forEach
         bookList.forEach(books => {
+            // url cover image
             const url = `https://covers.openlibrary.org/b/id/${books.cover_i}-M.jpg`;
             const div = document.createElement('div');
             div.classList.add('col');
@@ -56,7 +63,7 @@ const displaySearchBook = book => {
         });
     }
 }
-
+// error-message
 const displayError = () => {
     document.getElementById('error-message').style.display = 'block';
     document.getElementById('spinner').style.display = 'none';
